@@ -19,6 +19,11 @@ jobs:
           - v1-dependencies-
 
       - run: npm install
+
+      - run:
+          name: Run build
+          command: npm run build
+
       - run:
           name: Run tests
           command: npm test
