@@ -1,4 +1,6 @@
 # ever-cli
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fever-co%2Fever-cli.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fever-co%2Fever-cli?ref=badge_shield)
+
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/ever-co/ever-cli.svg)](https://greenkeeper.io/)
 
@@ -27,3 +29,7 @@ _Note: only versions starting with "v" will be published on npmjs.com_
 # Privacy & Tracking
 
 We are using [Segment](https://segment.com) (via [analytics-node package](https://github.com/segmentio/analytics-node)) to monitor usage data of Ever CLI according to our [Privacy Policy](https://ever.co/privacy/apps).
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fever-co%2Fever-cli.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fever-co%2Fever-cli?ref=badge_large)
