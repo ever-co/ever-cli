@@ -13,7 +13,8 @@
   },
   "scripts": {
     "build": "rimraf ./dist && tsc --build tsconfig.json",
-    "start": "node ./dist/main.js"
+    "start": "node ./dist/main.js",
+    "test": "echo TODO: Tests"
   },
   "repository": {
     "type": "git",
