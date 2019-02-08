@@ -1,5 +1,7 @@
 # ever-cli
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ever-co/ever-cli.svg)](https://greenkeeper.io/)
+
 A command line tool for Ever Platform
 
 # Installation
