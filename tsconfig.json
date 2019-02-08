@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"lib": ["dom", "esnext", "es2017.object"],
+		"baseUrl": "./src",
+		"outDir": "dist",
+		"target": "es6",
+		"moduleResolution": "node",
+		"preserveConstEnums": true,
+		"emitDecoratorMetadata": true,
+		"allowSyntheticDefaultImports": true,
+		"experimentalDecorators": true,
+		"sourceMap": true,
+		"skipLibCheck": true,
+		"strictNullChecks": false,
+		"typeRoots": ["node_modules/@types"],
+		"types": ["node", "reflect-metadata"]		
+	},
+	"include": ["src/**/*.ts", "./*.ts"],
+	"exclude": ["node_modules"]
+}

@@ -1,0 +1,66 @@
+{
+  "name": "ever-cli",
+  "version": "0.0.1",
+  "description": "A command line tool for Ever Platform",
+  "license": "GPL-3.0",
+  "homepage": "https://ever.co",
+  "main": "./dist/main.js",
+  "private": false,
+  "author": {
+    "name": "Ever Co. LTD",
+    "email": "ever@ever.co",
+    "url": "https://ever.co"
+  },
+  "scripts": {
+    "build": "rimraf ./dist && tsc --build tsconfig.json",
+    "start": "node ./dist/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ever-co/ever-cli.git"
+  },
+  "bin": {
+    "ever": "./dist/main.js"
+  },
+  "keywords": [
+    "cli",
+    "ever",
+    "platform",
+    "framework",
+    "commerce"
+  ],
+  "bugs": {
+    "url": "https://github.com/ever-co/ever-cli/issues"
+  },
+  "devDependencies": {
+    "@types/node": "10.12.22",
+    "@types/uuid": "3.4.4",
+    "@types/yargs": "12.0.8",
+    "@types/lodash": "4.14.120",
+    "watch": "1.0.2",
+    "prettier": "1.16.4",
+    "prettier-tslint": "0.4.2",
+    "pretty-quick": "1.10.0",
+    "ts-node": "8.0.2",
+    "tslint": "5.12.1",
+    "tslint-config-prettier": "1.18.0",
+    "typescript": "3.3.3"
+  },
+  "dependencies": {
+    "reflect-metadata": "0.1.13",
+    "chalk": "2.4.2",
+    "yargs": "12.0.5",
+    "uuid": "3.3.2",
+    "url": "0.11.0",
+    "semver": "5.6.0",
+    "rimraf": "2.6.3",
+    "node-fetch": "2.3.0",
+    "fs-extra": "7.0.1",
+    "lodash": "4.17.11",
+    "analytics-node": "3.3.0"
+  },
+  "engines": {
+    "node": ">=10.15.0",
+    "yarn": ">=1.13.0"
+  }
+}
