@@ -21,7 +21,9 @@ $ ever
 
 # Publishing on NPM
 
-To publish on NPM (https://www.npmjs.com/package/ever-cli), navigate to [releases page on Github](https://github.com/ever-co/ever-cli/releases), click "Draft a new release" and use version "v0.x.x".
+To publish new release on [NPM registry](https://www.npmjs.com/package/ever-cli):
+- bump package version number in the package.json file, _version_ field
+- navigate to [releases page on Github](https://github.com/ever-co/ever-cli/releases), click "Draft a new release" and use version "v0.x.x".
 
 _Note: only versions starting with "v" will be published on npmjs.com_
 
