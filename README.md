@@ -1,5 +1,6 @@
 # CLI for [Ever Platform](https://github.com/ever-co/ever)
 
+[![npm downloads](https://img.shields.io/npm/dm/ever-cli.svg?style=flat)](http://npm-stat.com/charts.html?package=ever-cli)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fever-co%2Fever-cli.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fever-co%2Fever-cli?ref=badge_shield)
 [![Greenkeeper badge](https://badges.greenkeeper.io/ever-co/ever-cli.svg)](https://greenkeeper.io/)
 
