@@ -36,8 +36,10 @@
   "devDependencies": {
     "@types/node": "11.9.4",
     "@types/uuid": "3.4.4",
+    "@types/yargs": "12.0.8",
+    "@types/lodash": "4.14.121",
     "@types/yargs": "12.0.9",
-    "@types/lodash": "4.14.120",
+    "@types/lodash": "4.14.121",
     "watch": "1.0.2",
     "prettier": "1.16.4",
     "prettier-tslint": "0.4.2",
