@@ -3,6 +3,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/ever-cli.svg?style=flat)](http://npm-stat.com/charts.html?package=ever-cli)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fever-co%2Fever-cli.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fever-co%2Fever-cli?ref=badge_shield)
 [![Greenkeeper badge](https://badges.greenkeeper.io/ever-co/ever-cli.svg)](https://greenkeeper.io/)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a5730f7dc949496faa3912ea8d31c022)](https://www.codacy.com/app/Ever/ever-cli?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ever-co/ever-cli&amp;utm_campaign=Badge_Grade)
 
 A command line tool for Ever Platform
 
