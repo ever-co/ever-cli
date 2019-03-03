@@ -34,7 +34,7 @@
     "url": "https://github.com/ever-co/ever-cli/issues"
   },
   "devDependencies": {
-    "@types/node": "11.9.4",
+    "@types/node": "11.9.5",
     "@types/uuid": "3.4.4",
     "@types/yargs": "12.0.8",
     "@types/lodash": "4.14.121",
