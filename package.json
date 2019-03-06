@@ -12,9 +12,10 @@
     "url": "https://ever.co"
   },
   "scripts": {
-    "build": "rimraf ./dist && tsc --build tsconfig.json",
-    "start": "npm run build && node ./dist/main.js",
-    "test": "echo TODO: Tests"
+    "build": "cross-env NODE_ENV=development rimraf ./dist && tsc --build tsconfig.json",
+    "start": "cross-env NODE_ENV=development npm run build && node ./dist/main.js",
+    "coverage": "cross-env NODE_ENV=development nyc report --reporter=json > coverage/coverage.json",
+    "test": "cross-env NODE_ENV=test echo TODO: Tests"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,9 @@
     "ts-node": "8.0.2",
     "tslint": "5.12.1",
     "tslint-config-prettier": "1.18.0",
+    "nyc": "^13.3.0",
+    "codecov": "^3.2.0",
+    "cross-env": "^5.2.0",
     "typescript": "3.3.3"
   },
   "dependencies": {
@@ -59,6 +63,26 @@
     "fs-extra": "7.0.1",
     "lodash": "4.17.11",
     "analytics-node": "3.3.0"
+  },
+  "nyc": {
+    "include": [
+      "packages/**/*.ts"
+    ],
+    "exclude": [
+      "node_modules/"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
   },
   "engines": {
     "node": ">=10.15.0",
