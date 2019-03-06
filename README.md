@@ -117,7 +117,9 @@ All other brand and product names are trademarks, registered trademarks or servi
 #### Copyright © 2019-present, Ever Co. LTD. All rights reserved.
 
 [![npm downloads](https://img.shields.io/npm/dm/ever-cli.svg?style=flat)](http://npm-stat.com/charts.html?package=ever-cli)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fever-co%2Fever-cli.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fever-co%2Fever-cli?ref=badge_shield)
-[![Greenkeeper badge](https://badges.greenkeeper.io/ever-co/ever-cli.svg)](https://greenkeeper.io/)
+[![Circle CI](https://circleci.com/gh/ever-co/ever.svg?style=svg)](https://circleci.com/gh/ever-co/ever-cli)
+[![codecov](https://codecov.io/gh/ever-co/ever-cli/branch/master/graph/badge.svg)](https://codecov.io/gh/ever-co/ever-cli)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a5730f7dc949496faa3912ea8d31c022)](https://www.codacy.com/app/Ever/ever-cli?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ever-co/ever-cli&amp;utm_campaign=Badge_Grade)
-
+[![Known Vulnerabilities](https://snyk.io/test/github/ever-co/ever-cli/badge.svg)](https://snyk.io/test/github/ever-co/ever-cli)
+[![Greenkeeper badge](https://badges.greenkeeper.io/ever-co/ever-cli.svg)](https://greenkeeper.io/)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fever-co%2Fever-cli.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fever-co%2Fever-cli?ref=badge_shield)
