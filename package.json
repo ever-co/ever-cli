@@ -1,6 +1,6 @@
 {
   "name": "ever-cli",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A command line tool for Ever Platform",
   "license": "GPL-3.0",
   "homepage": "https://ever.co",
@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "rimraf ./dist && tsc --build tsconfig.json",
-    "start": "node ./dist/main.js",
+    "start": "npm run build && node ./dist/main.js",
     "test": "echo TODO: Tests"
   },
   "repository": {
@@ -36,8 +36,6 @@
   "devDependencies": {
     "@types/node": "11.10.5",
     "@types/uuid": "3.4.4",
-    "@types/yargs": "12.0.8",
-    "@types/lodash": "4.14.122",
     "@types/yargs": "12.0.9",
     "@types/lodash": "4.14.122",
     "watch": "1.0.2",
