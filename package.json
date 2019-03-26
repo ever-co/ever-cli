@@ -15,7 +15,8 @@
     "build": "cross-env NODE_ENV=development rimraf ./dist && tsc --build tsconfig.json",
     "start": "cross-env NODE_ENV=development npm run build && node ./dist/main.js",
     "coverage": "cross-env NODE_ENV=development nyc report --reporter=json > coverage/coverage.json",
-    "test": "cross-env NODE_ENV=test echo TODO: Tests"
+    "test": "cross-env NODE_ENV=test echo TODO: Tests",
+    "lint": "cross-env NODE_ENV=development tslint -c tslint.json 'src/**/*.ts'"
   },
   "repository": {
     "type": "git",
