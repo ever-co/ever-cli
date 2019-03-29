@@ -1,6 +1,6 @@
 {
   "name": "ever-cli",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A command line tool for Ever Platform",
   "license": "GPL-3.0",
   "homepage": "https://ever.co",
@@ -16,7 +16,8 @@
     "start": "cross-env NODE_ENV=development npm run build && node ./dist/main.js",
     "coverage": "cross-env NODE_ENV=development nyc report --reporter=json > coverage/coverage.json",
     "test": "cross-env NODE_ENV=test echo TODO: Tests",
-    "lint": "cross-env NODE_ENV=development tslint -c tslint.json 'src/**/*.ts'"
+    "lint": "cross-env NODE_ENV=development tslint -c tslint.json 'src/**/*.ts'",
+    "release": "np"
   },
   "repository": {
     "type": "git",
@@ -51,7 +52,8 @@
     "tslint": "5.14.0",
     "tslint-config-prettier": "1.18.0",
     "typescript": "3.3.4000",
-    "watch": "1.0.2"
+    "watch": "1.0.2",
+    "np": "*"
   },
   "dependencies": {
     "analytics-node": "3.3.0",
@@ -89,7 +91,6 @@
     "instrument": true
   },
   "engines": {
-    "node": ">=10.15.0",
-    "yarn": ">=1.13.0"
+    "node": ">=10.15.0"  
   }
 }
