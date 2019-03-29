@@ -1,6 +1,6 @@
 {
   "name": "ever-cli",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A command line tool for Ever Platform",
   "license": "GPL-3.0",
   "homepage": "https://ever.co",
@@ -91,6 +91,6 @@
     "instrument": true
   },
   "engines": {
-    "node": ">=10.15.0"  
+    "node": ">=10.15.0"
   }
 }
