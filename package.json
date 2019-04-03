@@ -42,7 +42,7 @@
     "@types/node": "11.12.2",
     "@types/uuid": "3.4.4",
     "@types/yargs": "12.0.10",
-    "codecov": "3.2.0",
+    "codecov": "3.3.0",
     "cross-env": "5.2.0",
     "nyc": "13.3.0",
     "prettier": "1.16.4",
