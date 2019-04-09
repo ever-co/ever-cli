@@ -132,6 +132,7 @@ All other brand and product names are trademarks, registered trademarks or servi
 [![Circle CI](https://circleci.com/gh/ever-co/ever.svg?style=svg)](https://circleci.com/gh/ever-co/ever-cli)
 [![codecov](https://codecov.io/gh/ever-co/ever-cli/branch/master/graph/badge.svg)](https://codecov.io/gh/ever-co/ever-cli)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a5730f7dc949496faa3912ea8d31c022)](https://www.codacy.com/app/Ever/ever-cli?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ever-co/ever-cli&amp;utm_campaign=Badge_Grade)
+[![DeepScan grade](https://deepscan.io/api/teams/3293/projects/4851/branches/38568/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=3293&pid=4851&bid=38568)
 [![Known Vulnerabilities](https://snyk.io/test/github/ever-co/ever-cli/badge.svg)](https://snyk.io/test/github/ever-co/ever-cli)
 [![Greenkeeper badge](https://badges.greenkeeper.io/ever-co/ever-cli.svg)](https://greenkeeper.io/)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fever-co%2Fever-cli.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fever-co%2Fever-cli?ref=badge_shield)
