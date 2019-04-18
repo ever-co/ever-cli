@@ -53,7 +53,7 @@
     "tslint-config-prettier": "1.18.0",
     "typescript": "3.3.4000",
     "watch": "1.0.2",
-    "np": "*"
+    "np": ">=5.0.0"
   },
   "dependencies": {
     "analytics-node": "3.3.0",
