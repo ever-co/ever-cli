@@ -17,7 +17,9 @@
     "coverage": "cross-env NODE_ENV=development nyc report --reporter=json > coverage/coverage.json",
     "test": "cross-env NODE_ENV=test echo TODO: Tests",
     "lint": "cross-env NODE_ENV=development tslint -c tslint.json 'src/**/*.ts'",
-    "release": "np"
+    "release": "np",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -68,7 +70,8 @@
     "semver": "6.0.0",
     "url": "0.11.0",
     "uuid": "3.3.2",
-    "yargs": "13.2.2"
+    "yargs": "13.2.2",
+    "snyk": "^1.161.1"
   },
   "nyc": {
     "include": [
@@ -92,5 +95,6 @@
   },
   "engines": {
     "node": ">=10.15.0"
-  }
+  },
+  "snyk": true
 }
