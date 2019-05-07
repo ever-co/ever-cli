@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@types/figlet": "^1.2.0",
-    "@types/lodash": "4.14.123",
+    "@types/lodash": "4.14.124",
     "@types/node": "11.13.8",
     "@types/uuid": "3.4.4",
     "@types/yargs": "13.0.0",
