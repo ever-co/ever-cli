@@ -60,7 +60,7 @@
     "chalk": "2.4.2",
     "clear": "^0.1.0",
     "figlet": "1.2.1",
-    "fs-extra": "7.0.1",
+    "fs-extra": "8.0.0",
     "lodash": "4.17.11",
     "node-fetch": "2.4.0",
     "reflect-metadata": "0.1.13",
