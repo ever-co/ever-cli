@@ -55,7 +55,7 @@
     "tslint-config-prettier": "^1.18.0",
     "typescript": "3.5.1",
     "watch": "^1.0.2",
-    "np": "*"
+    "np": ">=6.2.3"
   },
   "dependencies": {
     "axios": "^0.19.0",
