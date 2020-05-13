@@ -43,7 +43,7 @@
     "@types/lodash": "^4.14.137",
     "@types/node": "12.12.17",
     "@types/uuid": "^3.4.4",
-    "@types/yargs": "^13.0.0",
+    "@types/yargs": "^15.0.5",
     "codecov": "^3.5.0",
     "cross-env": "^6.0.0",
     "prettier": "^1.18.2",
