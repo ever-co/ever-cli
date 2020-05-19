@@ -42,7 +42,7 @@
     "@types/figlet": "^1.2.0",
     "@types/lodash": "^4.14.137",
     "@types/node": "12.12.17",
-    "@types/uuid": "^3.4.4",
+    "@types/uuid": "^8.0.0",
     "@types/yargs": "^13.0.0",
     "codecov": "^3.5.0",
     "cross-env": "^6.0.0",
