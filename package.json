@@ -64,7 +64,7 @@
     "clear": "^0.1.0",
     "figlet": "^1.2.3",
     "fs-extra": "^8.0.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.20",
     "node-fetch": "^2.6.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
@@ -72,7 +72,7 @@
     "url": "^0.11.0",
     "uuid": "^3.3.2",
     "yargs": "^15.0.2",
-    "snyk": "^2.0.0"
+    "snyk": "^1.192.5"
   },
   "nyc": {
     "include": [
