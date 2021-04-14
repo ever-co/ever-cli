@@ -8,6 +8,7 @@ A command line tool for Ever Platforms:
 
 - https://github.com/ever-co/ever-demand
 - https://github.com/ever-co/ever-gauzy
+- https://github.com/ever-co/ever-opensaas
 
 # Installation
 
@@ -42,30 +43,15 @@ To publish new release on [NPM registry](https://www.npmjs.com/package/ever-cli)
 
 _Note: only versions starting with "v" will be published on npmjs.com_
 
-## Collaborators and Contributors
+## Contribute
 
-### Development Team
+-   Please give us :star: on Github, it **helps**!
+-   You are more than welcome to submit feature requests in the [separate repo](https://github.com/ever-co/feature-requests/issues)
+-   Pull requests are always welcome! Please base pull requests against the _develop_ branch and follow the [contributing guide](.github/CONTRIBUTING.md).
 
-#### Core
+## Contributors
 
--   Ruslan Konviser ([Evereq](https://github.com/evereq))
--   Michael Konviser ([Komish](https://github.com/MrKomish))
-
-#### Developers
-
--   Alish Meklyov ([Alish](https://github.com/AlishMekliov931))
--   Blagovest Gerov ([BlagovestGerov](https://github.com/BlagovestGerov))
--   Boyan Stanchev ([boyanstanchev](https://github.com/boyanstanchev))
--   Elvis Arabadjiyski ([Dreemsuncho](https://github.com/Dreemsuncho))
--   Emil Momchilov ([jew-er](https://github.com/jew-er))
-
-#### Graphic Designer & QA
-
--   Julia Konviser
-
-### Contributors
-
--   View all of our [contributors](https://github.com/ever-co/ever/graphs/contributors)
+View full list of our [contributors](https://github.com/ever-co/ever-gauzy/graphs/contributors).
 
 ## Contact Us
 
