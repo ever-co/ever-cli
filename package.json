@@ -18,7 +18,7 @@
     "test": "cross-env NODE_ENV=test echo TODO: Tests",
     "lint": "cross-env NODE_ENV=development tslint -c tslint.json 'src/**/*.ts'",
     "release": "np",
-    "snyk-protect": "snyk protect",
+    "snyk-protect": "snyk-protect",
     "prepare": "npm run snyk-protect"
   },
   "repository": {
@@ -72,7 +72,7 @@
     "url": "^0.11.0",
     "uuid": "^3.3.2",
     "yargs": "^15.0.2",
-    "snyk": "^2.0.0"
+    "@snyk/protect": "latest"
   },
   "nyc": {
     "include": [
