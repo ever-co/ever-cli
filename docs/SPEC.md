@@ -8,26 +8,16 @@ The `ever` CLI acts as a **thin router (multiplexer)** that dispatches commands 
 ever <product> <command> [subcommand] [args] [flags]
 ```
 
-Every sub-CLI supports **three invocation modes** — all equivalent:
+**Examples:**
 
 ```bash
-# Mode A: Via the ever router
+ever os run agents
+ever os plugin install yo
+ever teams notify kostya
+ever teams add member vanya
 ever cloc start timer
-
-# Mode B: Direct call with ever- prefix
-ever-cloc start timer
-
-# Mode C: Short alias (no prefix)
-cloc start timer
-```
-
-**More examples:**
-
-```bash
-ever os run agents          # or: ever-os run agents        # or: os run agents
-ever teams notify kostya    # or: ever-teams notify kostya  # or: teams notify kostya
-ever gauzy export invoices  # or: ever-gauzy export invoices # or: gauzy export invoices
-ever dev setup workspace    # or: ever-dev setup workspace  # or: dev setup workspace
+ever gauzy export invoices --format=csv
+ever dev setup workspace
 ```
 
 The user types one unified command. Under the hood, `ever` resolves the product name to the correct binary and forwards the remaining arguments.
@@ -38,7 +28,7 @@ The user types one unified command. Under the hood, `ever` resolves the product 
 
 1. **The root CLI is tiny.** It handles routing, plugin management, and global flags only. No product logic lives here.
 2. **Sub-CLIs are fully independent.** Each can be a separate npm package, Rust crate, Go binary — any language, any release cadence, any maintainer.
-3. **Three ways to invoke, one binary.** Every sub-CLI installs three commands: `ever <product>` (via router), `ever-<product>` (direct prefixed), and `<product>` (short alias). All three execute the same binary with the same arguments.
+3. **Sub-CLIs work standalone.** `ever-os run agents` works identically whether invoked directly or via `ever os run agents`. The sub-CLI receives the same argv either way.
 4. **Zero coupling between products.** Adding a new product CLI never requires changes to the router.
 5. **Graceful degradation.** If a sub-CLI is not installed, the router provides a clear install command instead of a cryptic error.
 
@@ -74,7 +64,7 @@ The router reads `~/.ever/plugins.json` (created on first run or first install).
   "plugins": {
     "os": {
       "binary": "/usr/local/bin/ever-os",
-      "package": "@anthropic-ever/os-cli",
+      "package": "ever-os-cli",
       "source": "npm",
       "version": "0.3.1",
       "installed_at": "2026-04-01T12:00:00Z"
@@ -173,23 +163,23 @@ All product CLIs in the Ever ecosystem. Each sub-CLI exposes **three command nam
 | Product | Short Alias | Prefixed Binary | Router Invocation | Package (npm) | Package (crate) | Status |
 |---|---|---|---|---|---|---|
 | **ever** (router) | — | `ever` | `ever <product> <cmd>` | `ever-cli` | `ever-cli` | ✅ Exists ([npm](https://www.npmjs.com/package/ever-cli)) |
-| **gauzy** | `gauzy` | `ever-gauzy` | `ever gauzy <cmd>` | `ever-gauzy-cli` | `ever-gauzy-cli` | Planned |
-| **os** | `os` | `ever-os` | `ever os <cmd>` | `ever-os-cli` | `ever-os-cli` | Planned |
-| **teams** | `teams` | `ever-teams` | `ever teams <cmd>` | `ever-teams-cli` | `ever-teams-cli` | Planned |
+| **gauzy** | `gauzy` | `ever-gauzy` | `ever gauzy <cmd>` | `ever-gauzy-cli` | `ever-gauzy-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-gauzy-cli)) |
+| **os** | `os` | `ever-os` | `ever os <cmd>` | `ever-os-cli` | `ever-os-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-os-cli)) |
+| **teams** | `teams` | `ever-teams` | `ever teams <cmd>` | `ever-teams-cli` | `ever-teams-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-teams-cli)) |
 | **works** | `works` | `ever-works` | `ever works <cmd>` | `ever-works-cli` | `ever-works-cli` | ✅ Exists ([npm](https://www.npmjs.com/package/ever-works-cli)) |
-| **rec** | `rec` | `ever-rec` | `ever rec <cmd>` | `ever-rec-cli` | `ever-rec-cli` | Planned |
-| **hust** | `hust` | `ever-hust` | `ever hust <cmd>` | `ever-hust-cli` | `ever-hust-cli` | Planned |
-| **jobs** | `jobs` | `ever-jobs` | `ever jobs <cmd>` | `ever-jobs-cli` | `ever-jobs-cli` | Planned |
-| **dev** | `dev` | `ever-dev` | `ever dev <cmd>` | `ever-dev-cli` | `ever-dev-cli` | Planned |
-| **cloc** | `cloc` | `ever-cloc` | `ever cloc <cmd>` | `ever-cloc-cli` | `ever-cloc-cli` | Planned |
-| **demand** | `demand` | `ever-demand` | `ever demand <cmd>` | `ever-demand-cli` | `ever-demand-cli` | Planned |
-| **traduora** | `traduora` | `ever-traduora` | `ever traduora <cmd>` | `ever-traduora-cli` | `ever-traduora-cli` | Planned |
-| **tech** | `tech` | `ever-tech` | `ever tech <cmd>` | `ever-tech-cli` | `ever-tech-cli` | Planned |
-| **saas** | `saas` | `ever-saas` | `ever saas <cmd>` | `ever-saas-cli` | `ever-saas-cli` | Planned |
-| **docs** | `docs` | `ever-docs` | `ever docs <cmd>` | `ever-docs-cli` | `ever-docs-cli` | Planned |
-| **digital** | `digital` | `ever-digital` | `ever digital <cmd>` | `ever-digital-cli` | `ever-digital-cli` | Planned |
-| **shop** | `shop` | `ever-shop` | `ever shop <cmd>` | `ever-shop-cli` | `ever-shop-cli` | Planned |
-| **iq** | `iq` | `ever-iq` | `ever iq <cmd>` | `ever-iq-cli` | `ever-iq-cli` | Planned |
+| **rec** | `rec` | `ever-rec` | `ever rec <cmd>` | `ever-rec-cli` | `ever-rec-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-rec-cli)) |
+| **hust** | `hust` | `ever-hust` | `ever hust <cmd>` | `ever-hust-cli` | `ever-hust-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-hust-cli)) |
+| **jobs** | `jobs` | `ever-jobs` | `ever jobs <cmd>` | `ever-jobs-cli` | `ever-jobs-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-jobs-cli)) |
+| **dev** | `dev` | `ever-dev` | `ever dev <cmd>` | `ever-dev-cli` | `ever-dev-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-dev-cli)) |
+| **cloc** | `cloc` | `ever-cloc` | `ever cloc <cmd>` | `ever-cloc-cli` | `ever-cloc-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-cloc-cli)) |
+| **demand** | `demand` | `ever-demand` | `ever demand <cmd>` | `ever-demand-cli` | `ever-demand-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-demand-cli)) |
+| **traduora** | `traduora` | `ever-traduora` | `ever traduora <cmd>` | `ever-traduora-cli` | `ever-traduora-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-traduora-cli)) |
+| **tech** | `tech` | `ever-tech` | `ever tech <cmd>` | `ever-tech-cli` | `ever-tech-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-tech-cli)) |
+| **saas** | `saas` | `ever-saas` | `ever saas <cmd>` | `ever-saas-cli` | `ever-saas-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-saas-cli)) |
+| **docs** | `docs` | `ever-docs` | `ever docs <cmd>` | `ever-docs-cli` | `ever-docs-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-docs-cli)) |
+| **digital** | `digital` | `ever-digital` | `ever digital <cmd>` | `ever-digital-cli` | `ever-digital-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-digital-cli)) |
+| **shop** | `shop` | `ever-shop` | `ever shop <cmd>` | `ever-shop-cli` | `ever-shop-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-shop-cli)) |
+| **iq** | `iq` | `ever-iq` | `ever iq <cmd>` | `ever-iq-cli` | `ever-iq-cli` | ✅ Reserved ([npm](https://www.npmjs.com/package/ever-iq-cli)) |
 
 > **Note:** The short alias (e.g. `cloc`, `teams`) and the prefixed binary (e.g. `ever-cloc`, `ever-teams`) both point to the same underlying executable. See **"Short Alias Commands"** below for how this is implemented.
 
@@ -219,7 +209,7 @@ api_endpoint = "https://api.ever.co"
 
 [registry]
 # Where to look for sub-CLI packages
-npm_scope = "@ever-co"
+npm_prefix = "ever"
 ```
 
 Sub-CLIs can read `~/.ever/config.toml` for shared configuration (auth tokens, org defaults) so the user authenticates once via `ever config set auth.api_token <token>` and all products inherit it.
@@ -441,6 +431,13 @@ GitHub Actions / Release Workflow
 ### What the User Sees
 
 ```bash
+# Install globally — identical to any Node CLI
+$ npm install -g @ever-co/cli
+
+# Or use npx — no global install needed
+$ npx @ever-co/cli os run agents
+
+# If the "ever-cli" npm package name is available/owned, even simpler:
 $ npm install -g ever-cli
 $ ever os run agents
 
@@ -452,8 +449,7 @@ The user never knows it's Rust. No cargo, no rustup, no downloading binaries. Ju
 
 ### `ever-cli` npm Package (Alias)
 
-Since we already own the `ever-cli` npm package on npm, 
-we can keep publishing it as a **wrapper/alias** that depends on `@ever-co/cli`:
+Since you already own the `ever-cli` npm package on npm, you can keep publishing it as a **wrapper/alias** that depends on `@ever-co/cli`:
 
 ```json
 {
@@ -506,13 +502,25 @@ Each product sub-CLI (ever-os, ever-teams, etc.) can use the exact same distribu
 # User installs via the ever router
 ever install os
   └─ internally runs: npm install -g ever-os-cli
-      └─ pulls in @ever-co/ever-os-cli-darwin-arm64 (native binary)
+      └─ pulls in ever-os-cli (native binary or Node package)
 
 # Or user installs directly
 npm install -g ever-os-cli
 ```
 
 Sub-CLIs can also be pure Node/TypeScript if Rust is overkill for that product. The router doesn't care what language the sub-CLI is written in — it just execs a binary.
+
+### Binary Size Targets
+
+The router binary should be small since it does very little:
+
+| Component | Expected size |
+|---|---|
+| Router binary (stripped) | ~2–4 MB |
+| Platform npm package | ~1–2 MB (compressed) |
+| Main npm package (JS wrapper only) | ~5 KB |
+
+For reference, Biome's binary is ~30MB (it does a lot more). The router should be a fraction of that.
 
 ---
 
@@ -528,9 +536,10 @@ Resolving ever-os...
 Installing...
   → npm install -g ever-os-cli
   → Binary installed at /usr/local/bin/ever-os
+  → Short alias installed at /usr/local/bin/os
 Registered in ~/.ever/plugins.json
 
-✓ ever os is ready. Try: `ever os --help` or `os --help`
+✓ ever os is ready. Try: ever os --help or os --help
 ```
 
 The installer should support multiple sources:
@@ -564,20 +573,20 @@ The router ships with a hardcoded catalog that maps product names to package coo
   "os":        { "npm": "ever-os-cli",        "crate": "ever-os-cli",        "repo": "ever-co/ever-os-cli" },
   "teams":     { "npm": "ever-teams-cli",     "crate": "ever-teams-cli",     "repo": "ever-co/ever-teams-cli" },
   "gauzy":     { "npm": "ever-gauzy-cli",     "crate": "ever-gauzy-cli",     "repo": "ever-co/ever-gauzy-cli" },
-  "works":     { "npm": "ever-works-cli",          "crate": "ever-works-cli",     "repo": "ever-co/ever-works-cli" },
-  "rec":       { "npm": "ever-rec-cli",        "crate": "ever-rec-cli",       "repo": "ever-co/ever-rec-cli" },
-  "hust":      { "npm": "ever-hust-cli",       "crate": "ever-hust-cli",      "repo": "ever-co/ever-hust-cli" },
-  "jobs":      { "npm": "ever-jobs-cli",       "crate": "ever-jobs-cli",      "repo": "ever-co/ever-jobs-cli" },
-  "dev":       { "npm": "ever-dev-cli",        "crate": "ever-dev-cli",       "repo": "ever-co/ever-dev-cli" },
-  "cloc":      { "npm": "ever-cloc-cli",       "crate": "ever-cloc-cli",      "repo": "ever-co/ever-cloc-cli" },
-  "demand":    { "npm": "ever-demand-cli",     "crate": "ever-demand-cli",    "repo": "ever-co/ever-demand-cli" },
-  "traduora":  { "npm": "ever-traduora-cli",   "crate": "ever-traduora-cli",  "repo": "ever-co/ever-traduora-cli" },
-  "tech":      { "npm": "ever-tech-cli",       "crate": "ever-tech-cli",      "repo": "ever-co/ever-tech-cli" },
-  "saas":      { "npm": "ever-saas-cli",       "crate": "ever-saas-cli",      "repo": "ever-co/ever-saas-cli" },
-  "docs":      { "npm": "ever-docs-cli",       "crate": "ever-docs-cli",      "repo": "ever-co/ever-docs-cli" },
-  "digital":   { "npm": "ever-digital-cli",    "crate": "ever-digital-cli",   "repo": "ever-co/ever-digital-cli" },
-  "shop":      { "npm": "ever-shop-cli",       "crate": "ever-shop-cli",      "repo": "ever-co/ever-shop-cli" },
-  "iq":        { "npm": "ever-iq-cli",         "crate": "ever-iq-cli",        "repo": "ever-co/ever-iq-cli" }
+  "works":     { "npm": "ever-works-cli",     "crate": "ever-works-cli",     "repo": "ever-co/ever-works-cli" },
+  "rec":       { "npm": "ever-rec-cli",       "crate": "ever-rec-cli",       "repo": "ever-co/ever-rec-cli" },
+  "hust":      { "npm": "ever-hust-cli",      "crate": "ever-hust-cli",      "repo": "ever-co/ever-hust-cli" },
+  "jobs":      { "npm": "ever-jobs-cli",      "crate": "ever-jobs-cli",      "repo": "ever-co/ever-jobs-cli" },
+  "dev":       { "npm": "ever-dev-cli",       "crate": "ever-dev-cli",       "repo": "ever-co/ever-dev-cli" },
+  "cloc":      { "npm": "ever-cloc-cli",      "crate": "ever-cloc-cli",      "repo": "ever-co/ever-cloc-cli" },
+  "demand":    { "npm": "ever-demand-cli",    "crate": "ever-demand-cli",    "repo": "ever-co/ever-demand-cli" },
+  "traduora":  { "npm": "ever-traduora-cli",  "crate": "ever-traduora-cli",  "repo": "ever-co/ever-traduora-cli" },
+  "tech":      { "npm": "ever-tech-cli",      "crate": "ever-tech-cli",      "repo": "ever-co/ever-tech-cli" },
+  "saas":      { "npm": "ever-saas-cli",      "crate": "ever-saas-cli",      "repo": "ever-co/ever-saas-cli" },
+  "docs":      { "npm": "ever-docs-cli",      "crate": "ever-docs-cli",      "repo": "ever-co/ever-docs-cli" },
+  "digital":   { "npm": "ever-digital-cli",   "crate": "ever-digital-cli",   "repo": "ever-co/ever-digital-cli" },
+  "shop":      { "npm": "ever-shop-cli",      "crate": "ever-shop-cli",      "repo": "ever-co/ever-shop-cli" },
+  "iq":        { "npm": "ever-iq-cli",        "crate": "ever-iq-cli",        "repo": "ever-co/ever-iq-cli" }
 }
 ```
 
@@ -591,25 +600,9 @@ Every product CLI that integrates with the `ever` router MUST follow these rules
 
 ### 1. Binary Naming
 
-Each sub-CLI package MUST register **three bin entries** pointing to the same executable: the short alias, the prefixed name, and (for npm) they all resolve to the same script.
+Each sub-CLI package MUST register **two bin entries** pointing to the same executable: the short alias and the prefixed name.
 
 **npm example (package.json):**
-
-```json
-{
-  "name": "ever-os-cli",
-  "version": "0.3.1",
-  "bin": {
-    "os": "./bin/cli.js",
-    "ever-os": "./bin/cli.js",
-    "ever os": "./bin/cli.js"
-  }
-}
-```
-
-> **Note:** The `"ever os"` entry (with space) will not work as a bin name in npm — that invocation is handled by the `ever` router, not by the package's bin field. The package only needs to register `"os"` and `"ever-os"`, both pointing to the same file.
-
-So the correct minimal bin config is:
 
 ```json
 {
@@ -622,6 +615,8 @@ So the correct minimal bin config is:
 }
 ```
 
+Both `os` and `ever-os` are symlinked to the same script on `npm install -g`. The third invocation mode (`ever os`) is handled by the `ever` router, not by the package's bin field.
+
 **Rust example (Cargo.toml):**
 
 ```toml
@@ -632,9 +627,11 @@ version = "0.3.1"
 [[bin]]
 name = "ever-os"
 path = "src/main.rs"
-```
 
-For Rust crates, cargo only supports one binary name per `[[bin]]` entry. The short alias is created via a post-install step or a wrapper script. See **"Short Alias Commands"** below for details on the Rust approach.
+[[bin]]
+name = "os"
+path = "src/main.rs"
+```
 
 ### 2. Argument Handling
 
@@ -680,7 +677,7 @@ Sub-CLIs SHOULD read `~/.ever/config.toml` for shared settings (auth, org, API e
 
 ### 5. Help Output
 
-Sub-CLIs SHOULD include a header line identifying themselves and showing all invocation methods, so the user knows which product is responding:
+Sub-CLIs SHOULD include a header line identifying themselves and showing all invocation methods:
 
 ```
 $ os --help
@@ -700,16 +697,10 @@ COMMANDS:
 
 ### 6. Version Output
 
-Via `ever`:
-
 ```bash
 $ ever os --version
 ever-os 0.3.1
-```
 
-Or below:
-
-```bash
 $ os --version
 ever-os 0.3.1
 ```
@@ -733,9 +724,9 @@ Every sub-CLI is accessible via a short alias that omits the `ever-` prefix. Thi
 }
 ```
 
-**For Rust crates:** Cargo only supports one binary name per `[[bin]]` entry. Two approaches:
+**For Rust crates:** Two approaches:
 
-*Option A — Multiple bin entries (same source):*
+*Option A — Multiple bin entries (same source, preferred):*
 
 ```toml
 [[bin]]
@@ -750,8 +741,6 @@ path = "src/main.rs"
 *Option B — Post-install symlink:*
 
 The install script creates a symlink: `ln -sf ever-cloc /usr/local/bin/cloc`
-
-Option A is preferred as it requires no post-install logic.
 
 ### Conflict Handling
 
@@ -794,15 +783,6 @@ Checking short aliases...
                The 'cloc' alias is shadowed by an existing binary.
                Use 'ever cloc' or 'ever-cloc' instead.
 ✓ demand      → /usr/local/bin/demand (ever-demand-cli)
-```
-
-4. For **high-risk aliases** (`cloc`, `jobs`), the install can prompt the user:
-
-```
-⚠ Warning: 'cloc' already exists at /usr/bin/cloc (cloc - Count Lines of Code)
-  Install the 'cloc' alias anyway? This will shadow the existing command.
-  You can always use 'ever cloc' or 'ever-cloc' instead.
-  [y/N]
 ```
 
 ### Priority Order
