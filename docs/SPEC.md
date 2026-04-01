@@ -289,38 +289,40 @@ This is the same pattern used by **esbuild**, **SWC**, **Biome**, **Turbo**, **O
 ### Package Structure
 
 ```
-@ever-co/cli                          ← Main package (what users install)
+ever-cli                              ← Main package, unscoped (what users install)
 ├── package.json                       ← Has optionalDependencies for all platforms
 ├── bin/ever                           ← Thin JS wrapper (5 lines)
 └── npm/postinstall.js                 ← Optional: verify binary works
 
-@ever-co/cli-darwin-arm64             ← macOS Apple Silicon
+@ever-co/cli-darwin-arm64             ← macOS Apple Silicon (scoped)
 └── ever                               ← Native Rust binary
 
-@ever-co/cli-darwin-x64               ← macOS Intel
+@ever-co/cli-darwin-x64               ← macOS Intel (scoped)
 └── ever
 
-@ever-co/cli-linux-x64-gnu            ← Linux x64 (glibc)
+@ever-co/cli-linux-x64-gnu            ← Linux x64 glibc (scoped)
 └── ever
 
-@ever-co/cli-linux-x64-musl           ← Linux x64 (musl/Alpine)
+@ever-co/cli-linux-x64-musl           ← Linux x64 musl/Alpine (scoped)
 └── ever
 
-@ever-co/cli-linux-arm64-gnu          ← Linux ARM64 (glibc)
+@ever-co/cli-linux-arm64-gnu          ← Linux ARM64 glibc (scoped)
 └── ever
 
-@ever-co/cli-win32-x64-msvc           ← Windows x64
+@ever-co/cli-win32-x64-msvc           ← Windows x64 (scoped)
 └── ever.exe
 
-@ever-co/cli-win32-arm64-msvc         ← Windows ARM64
+@ever-co/cli-win32-arm64-msvc         ← Windows ARM64 (scoped)
 └── ever.exe
 ```
 
-### Main Package: `@ever-co/cli/package.json`
+> **Why scoped for platform packages?** Product CLIs (e.g. `ever-gauzy-cli`) are unscoped to reserve the public names. Platform binary packages are internal implementation details — users never install them directly. Scoping them under `@ever-co/` keeps them organized, protected by the org, and avoids polluting the public namespace with long names like `ever-cli-linux-arm64-gnu`.
+
+### Main Package: `ever-cli/package.json`
 
 ```json
 {
-  "name": "@ever-co/cli",
+  "name": "ever-cli",
   "version": "1.0.0",
   "description": "Ever CLI — unified command-line interface for the Ever ecosystem",
   "bin": {
@@ -419,11 +421,11 @@ GitHub Actions / Release Workflow
 │   1. cargo build --release --target <target>
 │   2. Strip binary (strip / llvm-strip)
 │   3. Copy binary into platform npm package dir
-│   4. npm publish @ever-co/cli-<platform>
+│   4. npm publish @ever-co/cli-<platform> --access public
 │
 └─ Finally:
-    5. Update version in @ever-co/cli/package.json (main package)
-    6. npm publish @ever-co/cli
+    5. Update version in ever-cli/package.json
+    6. npm publish ever-cli
 ```
 
 **Cross-compilation tools:** Use `cross` (https://github.com/cross-rs/cross) or `cargo-zigbuild` for reliable cross-compilation from a single CI runner, or use GitHub Actions' matrix strategy with native runners for each OS.
@@ -432,44 +434,18 @@ GitHub Actions / Release Workflow
 
 ```bash
 # Install globally — identical to any Node CLI
-$ npm install -g @ever-co/cli
+$ npm install -g ever-cli
 
 # Or use npx — no global install needed
-$ npx @ever-co/cli os run agents
-
-# If the "ever-cli" npm package name is available/owned, even simpler:
-$ npm install -g ever-cli
-$ ever os run agents
-
-# npx with short name
 $ npx ever-cli os run agents
+
+# Then just use it
+$ ever os run agents
+$ ever teams notify kostya
+$ teams notify kostya
 ```
 
 The user never knows it's Rust. No cargo, no rustup, no downloading binaries. Just npm.
-
-### `ever-cli` npm Package (Alias)
-
-Since you already own the `ever-cli` npm package on npm, you can keep publishing it as a **wrapper/alias** that depends on `@ever-co/cli`:
-
-```json
-{
-  "name": "ever-cli",
-  "version": "1.0.0",
-  "dependencies": {
-    "@ever-co/cli": "1.0.0"
-  },
-  "bin": {
-    "ever": "./node_modules/@ever-co/cli/bin/ever"
-  }
-}
-```
-
-This way both work:
-
-```bash
-npm install -g ever-cli      # Familiar name
-npm install -g @ever-co/cli  # Scoped name
-```
 
 ### Alternative Installation Methods
 
