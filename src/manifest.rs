@@ -63,6 +63,10 @@ impl PluginManifest {
     pub fn upsert(&mut self, product: String, entry: PluginEntry) {
         self.plugins.insert(product, entry);
     }
+
+    pub fn remove(&mut self, product: &str) -> Option<PluginEntry> {
+        self.plugins.remove(product)
+    }
 }
 
 pub fn manifest_path() -> RouterResult<PathBuf> {

@@ -8,8 +8,6 @@ mod fs;
 mod manifest;
 mod resolver;
 
-use clap::Parser;
-
 use crate::cli::{Cli, Command};
 use crate::error::RouterResult;
 
@@ -21,7 +19,7 @@ fn main() {
 }
 
 fn run() -> RouterResult<()> {
-    let cli = Cli::parse();
+    let cli = Cli::parse(std::env::args().skip(1).collect())?;
 
     match cli.command {
         Command::Help => commands::help::run(),
