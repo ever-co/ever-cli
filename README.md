@@ -2,6 +2,18 @@
 
 `ever-cli` is the root router for the Ever ecosystem.
 
+## Installation
+
+Target install experience:
+
+```bash
+npm install -g ever-cli
+```
+
+The final package will distribute the Rust binary through npm-compatible packaging. During development, the native binary must be built locally.
+
+## Usage
+
 It provides a single entrypoint:
 
 ```bash
@@ -46,16 +58,6 @@ Or after install:
 ```bash
 ever --help
 ```
-
-## Installation
-
-Target install experience:
-
-```bash
-npm install -g ever-cli
-```
-
-The final package will distribute the Rust binary through npm-compatible packaging. During development, the native binary must be built locally.
 
 # Publishing on NPM
 
