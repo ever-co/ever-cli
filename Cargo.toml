@@ -1,0 +1,18 @@
+[package]
+name = "ever-cli"
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0"
+description = "Ever CLI router"
+
+[[bin]]
+name = "ever"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4.5.39", features = ["derive"] }
+dirs = "6.0.0"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.145"
+thiserror = "2.0.17"
+which = "8.0.0"
