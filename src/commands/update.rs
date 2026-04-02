@@ -1,5 +1,6 @@
 use crate::catalog;
 use crate::error::{RouterError, RouterResult};
+use crate::commands::install::timestamp;
 use crate::manifest::{PluginEntry, PluginManifest};
 use crate::npm::{detect_global_package_version, update_global_package, update_global_packages};
 use crate::resolver::resolve_from_path;
@@ -82,6 +83,7 @@ fn refresh_manifest_entry(
     entry.package = Some(package_name.clone());
     entry.source = Some("npm".to_string());
     entry.version = detect_global_package_version(&package_name)?;
+    entry.installed_at = Some(timestamp::iso8601_now()?);
     manifest.upsert(product.to_string(), entry);
 
     Ok(())

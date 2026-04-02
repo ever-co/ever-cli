@@ -42,7 +42,7 @@ pub fn run(product: String, source: Option<String>) -> RouterResult<()> {
     Ok(())
 }
 
-mod timestamp {
+pub(crate) mod timestamp {
     use chrono::Utc;
     use crate::error::{RouterError, RouterResult};
 
