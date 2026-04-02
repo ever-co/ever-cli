@@ -22,6 +22,18 @@ pub struct PluginEntry {
     pub installed_at: Option<String>,
 }
 
+impl PluginEntry {
+    pub fn new(binary: PathBuf, package: Option<String>, source: Option<String>) -> Self {
+        Self {
+            binary,
+            package,
+            source,
+            version: None,
+            installed_at: None,
+        }
+    }
+}
+
 impl PluginManifest {
     pub fn load_or_default() -> RouterResult<Self> {
         let path = manifest_path()?;
@@ -42,6 +54,14 @@ impl PluginManifest {
         let data = serde_json::to_string_pretty(self)?;
         fs::write(path, data)?;
         Ok(())
+    }
+
+    pub fn get(&self, product: &str) -> Option<&PluginEntry> {
+        self.plugins.get(product)
+    }
+
+    pub fn upsert(&mut self, product: String, entry: PluginEntry) {
+        self.plugins.insert(product, entry);
     }
 }
 
