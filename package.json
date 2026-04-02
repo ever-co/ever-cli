@@ -1,10 +1,10 @@
 {
   "name": "ever-cli",
-  "version": "0.0.13",
-  "description": "A command line tool for Ever Platform",
+  "version": "0.1.0",
+  "description": "Ever CLI router for the Ever ecosystem",
   "license": "GPL-3.0",
   "homepage": "https://ever.co",
-  "main": "./dist/main.js",
+  "main": "./bin/ever.js",
   "private": false,
   "author": {
     "name": "Ever Co. LTD",
@@ -12,90 +12,35 @@
     "url": "https://ever.co"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=development rimraf ./dist && tsc --build tsconfig.json",
-    "start": "cross-env NODE_ENV=development npm run build && node ./dist/main.js",
-    "coverage": "cross-env NODE_ENV=development nyc report --reporter=json > coverage/coverage.json",
-    "test": "cross-env NODE_ENV=test echo TODO: Tests",
-    "lint": "cross-env NODE_ENV=development tslint -c tslint.json 'src/**/*.ts'",
+    "build": "cargo build --release",
+    "build:debug": "cargo build",
+    "start": "node ./bin/ever.js",
+    "test": "echo TODO: tests",
     "release": "np",
-    "snyk-protect": "snyk-protect",
-    "prepare": "npm run snyk-protect"
+    "postinstall": "node ./npm/postinstall.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ever-co/ever-cli.git"
   },
   "bin": {
-    "ever": "./dist/main.js"
+    "ever": "./bin/ever.js"
   },
   "keywords": [
     "cli",
     "ever",
+    "router",
     "platform",
-    "framework",
-    "commerce"
+    "ecosystem"
   ],
   "bugs": {
     "url": "https://github.com/ever-co/ever-cli/issues"
   },
   "devDependencies": {
-    "@types/figlet": "^1.2.0",
-    "@types/lodash": "^4.14.137",
-    "@types/node": "12.12.17",
-    "@types/uuid": "^3.4.4",
-    "@types/yargs": "^13.0.0",
-    "codecov": "^3.5.0",
-    "cross-env": "^6.0.0",
-    "prettier": "^1.18.2",
-    "nyc": "^14.1.1",
-    "prettier-tslint": "^0.4.2",
-    "pretty-quick": "^2.0.0",
-    "ts-node": "^8.2.0",
-    "tslint": "^5.17.0",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "3.5.1",
-    "watch": "^1.0.2",
     "np": "*"
   },
-  "dependencies": {
-    "axios": "^1.6.0",
-    "analytics-node": "^3.3.0",
-    "chalk": "^3.0.0",
-    "clear": "^0.1.0",
-    "figlet": "^1.2.3",
-    "fs-extra": "^8.0.1",
-    "lodash": "^4.17.11",
-    "node-fetch": "^2.6.0",
-    "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.0",
-    "semver": "^7.5.2",
-    "url": "^0.11.0",
-    "uuid": "^3.3.2",
-    "yargs": "^15.0.2",
-    "@snyk/protect": "latest"
-  },
-  "nyc": {
-    "include": [
-      "packages/**/*.ts"
-    ],
-    "exclude": [
-      "node_modules/"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ],
-    "reporter": [
-      "text-summary",
-      "html"
-    ],
-    "sourceMap": true,
-    "instrument": true
-  },
+  "dependencies": {},
   "engines": {
-    "node": ">=10.15.0"
-  },
-  "snyk": true
+    "node": ">=18.0.0"
+  }
 }
