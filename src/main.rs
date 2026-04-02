@@ -6,6 +6,7 @@ mod error;
 mod exec;
 mod fs;
 mod manifest;
+mod npm;
 mod resolver;
 
 use crate::cli::{Cli, Command};

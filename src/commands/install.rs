@@ -1,9 +1,7 @@
-use std::process::Command;
-use std::time::{SystemTime, UNIX_EPOCH};
-
 use crate::catalog;
 use crate::error::{RouterError, RouterResult};
 use crate::manifest::{PluginEntry, PluginManifest};
+use crate::npm::{detect_global_package_version, install_global_package};
 use crate::resolver::resolve_from_path;
 
 pub fn run(product: String, source: Option<String>) -> RouterResult<()> {
@@ -18,16 +16,7 @@ pub fn run(product: String, source: Option<String>) -> RouterResult<()> {
         .ok_or_else(|| RouterError::Message(format!("Unknown product '{product}'. Run: ever list")))?;
 
     println!("Installing {} via npm...", entry.npm_package);
-    let status = Command::new("npm")
-        .args(["install", "-g", entry.npm_package])
-        .status()?;
-
-    if !status.success() {
-        return Err(RouterError::Message(format!(
-            "npm install failed for '{}'",
-            entry.npm_package
-        )));
-    }
+    install_global_package(entry.npm_package)?;
 
     let binary = resolve_from_path(&product).ok_or_else(|| {
         RouterError::Message(format!(
@@ -43,7 +32,8 @@ pub fn run(product: String, source: Option<String>) -> RouterResult<()> {
         Some(entry.npm_package.to_string()),
         Some("npm".to_string()),
     );
-    plugin.installed_at = Some(current_timestamp_string());
+    plugin.version = detect_global_package_version(entry.npm_package)?;
+    plugin.installed_at = Some(timestamp::iso8601_now()?);
     manifest.upsert(product.clone(), plugin);
     manifest.save()?;
 
@@ -52,11 +42,16 @@ pub fn run(product: String, source: Option<String>) -> RouterResult<()> {
     Ok(())
 }
 
-fn current_timestamp_string() -> String {
-    let seconds = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map(|duration| duration.as_secs())
-        .unwrap_or(0);
+mod timestamp {
+    use chrono::Utc;
+    use crate::error::{RouterError, RouterResult};
 
-    seconds.to_string()
+    pub fn iso8601_now() -> RouterResult<String> {
+        let now = Utc::now();
+        if now.timestamp() < 0 {
+            return Err(RouterError::Message("Failed to format current timestamp".to_string()));
+        }
+
+        Ok(now.to_rfc3339())
+    }
 }

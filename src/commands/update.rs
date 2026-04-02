@@ -1,8 +1,7 @@
-use std::process::Command;
-
 use crate::catalog;
 use crate::error::{RouterError, RouterResult};
 use crate::manifest::{PluginEntry, PluginManifest};
+use crate::npm::{detect_global_package_version, update_global_package, update_global_packages};
 use crate::resolver::resolve_from_path;
 
 pub fn run(product: Option<String>) -> RouterResult<()> {
@@ -22,16 +21,7 @@ fn update_single(product: String) -> RouterResult<()> {
         .ok_or_else(|| RouterError::Message(format!("Unknown product '{product}'. Run: ever list")))?;
 
     println!("Updating {}...", package_name);
-    let status = Command::new("npm")
-        .args(["update", "-g", &package_name])
-        .status()?;
-
-    if !status.success() {
-        return Err(RouterError::Message(format!(
-            "npm update failed for '{}'",
-            package_name
-        )));
-    }
+    update_global_package(&package_name)?;
 
     refresh_manifest_entry(&mut manifest, &product, package_name)?;
     manifest.save()?;
@@ -60,13 +50,7 @@ fn update_all() -> RouterResult<()> {
 
     let packages: Vec<&str> = installed_products.iter().map(|(_, package)| package.as_str()).collect();
     println!("Updating {} product(s)...", packages.len());
-    let status = Command::new("npm").args(["update", "-g"]).args(&packages).status()?;
-
-    if !status.success() {
-        return Err(RouterError::Message(
-            "npm update failed for one or more products".to_string(),
-        ));
-    }
+    update_global_packages(&packages)?;
 
     for (product, package) in installed_products {
         refresh_manifest_entry(&mut manifest, &product, package)?;
@@ -95,8 +79,9 @@ fn refresh_manifest_entry(
         PluginEntry::new(binary.clone(), Some(package_name.clone()), Some("npm".to_string()))
     });
     entry.binary = binary;
-    entry.package = Some(package_name);
+    entry.package = Some(package_name.clone());
     entry.source = Some("npm".to_string());
+    entry.version = detect_global_package_version(&package_name)?;
     manifest.upsert(product.to_string(), entry);
 
     Ok(())
