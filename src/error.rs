@@ -10,6 +10,10 @@ pub enum RouterError {
     Io(#[from] io::Error),
     #[error("JSON error: {0}")]
     Json(#[from] serde_json::Error),
+    #[error("TOML deserialize error: {0}")]
+    TomlDeserialize(#[from] toml::de::Error),
+    #[error("TOML serialize error: {0}")]
+    TomlSerialize(#[from] toml::ser::Error),
     #[error("Binary '{product}' not found. Run: ever install {product}")]
     ProductNotInstalled { product: String },
 }

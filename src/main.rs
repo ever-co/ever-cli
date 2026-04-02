@@ -1,6 +1,7 @@
 mod catalog;
 mod cli;
 mod commands;
+mod config;
 mod error;
 mod exec;
 mod fs;
