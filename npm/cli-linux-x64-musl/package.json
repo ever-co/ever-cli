@@ -1,0 +1,9 @@
+{
+  "name": "@ever-co/cli-linux-x64-musl",
+  "version": "0.1.0",
+  "os": ["linux"],
+  "cpu": ["x64"],
+  "files": ["ever"],
+  "preferUnpacked": true,
+  "license": "GPL-3.0"
+}

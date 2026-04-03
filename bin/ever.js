@@ -4,9 +4,38 @@ const { spawnSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
+const PLATFORM_PACKAGES = {
+  'darwin-arm64': '@ever-co/cli-darwin-arm64/ever',
+  'darwin-x64': '@ever-co/cli-darwin-x64/ever',
+  'linux-arm64': '@ever-co/cli-linux-arm64-gnu/ever',
+  'linux-x64': '@ever-co/cli-linux-x64-gnu/ever',
+  'win32-arm64': '@ever-co/cli-win32-arm64-msvc/ever.exe',
+  'win32-x64': '@ever-co/cli-win32-x64-msvc/ever.exe',
+};
+
+function resolveInstalledPlatformBinary() {
+  const key = `${process.platform}-${process.arch}`;
+  const packageEntry = PLATFORM_PACKAGES[key];
+
+  if (!packageEntry) {
+    return null;
+  }
+
+  try {
+    return require.resolve(packageEntry);
+  } catch {
+    return null;
+  }
+}
+
 function resolveBinary() {
   if (process.env.EVER_CLI_BINARY) {
     return process.env.EVER_CLI_BINARY;
+  }
+
+  const installedBinary = resolveInstalledPlatformBinary();
+  if (installedBinary) {
+    return installedBinary;
   }
 
   const repoRoot = path.resolve(__dirname, '..');
@@ -29,7 +58,7 @@ const binary = resolveBinary();
 
 if (!binary) {
   console.error('Error: Ever CLI native binary was not found.');
-  console.error('Build it first with: cargo build --release');
+  console.error('Install the matching platform package or build it locally with: cargo build --release');
   process.exit(1);
 }
 
