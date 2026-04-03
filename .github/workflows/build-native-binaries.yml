@@ -57,6 +57,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Sync platform package versions
+        run: node ./scripts/sync-package-versions.js
+
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -79,11 +82,10 @@ jobs:
       - name: Prepare package artifact
         shell: bash
         run: |
-          mkdir -p "dist/${{ matrix.artifact_name }}"
-          cp "${{ matrix.package_dir }}/package.json" "dist/${{ matrix.artifact_name }}/package.json"
-          cp LICENSE.md "dist/${{ matrix.artifact_name }}/LICENSE.md"
-          cp README.md "dist/${{ matrix.artifact_name }}/README.md"
-          cp "target/${{ matrix.target }}/release/${{ matrix.binary_name }}" "dist/${{ matrix.artifact_name }}/${{ matrix.binary_name }}"
+          node ./scripts/prepare-platform-package.js \
+            "${{ matrix.package_dir }}" \
+            "target/${{ matrix.target }}/release/${{ matrix.binary_name }}" \
+            "dist/${{ matrix.artifact_name }}"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

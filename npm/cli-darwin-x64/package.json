@@ -1,9 +1,23 @@
 {
   "name": "@ever-co/cli-darwin-x64",
   "version": "0.1.0",
-  "os": ["darwin"],
-  "cpu": ["x64"],
-  "files": ["ever"],
+  "description": "Ever CLI native binary for macOS x64",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ever-co/ever-cli.git"
+  },
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "files": [
+    "ever"
+  ],
   "preferUnpacked": true,
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "publishConfig": {
+    "access": "public"
+  }
 }

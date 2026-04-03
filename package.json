@@ -15,6 +15,8 @@
     "build": "cargo build --release",
     "build:debug": "cargo build",
     "start": "node ./bin/ever.js",
+    "sync:versions": "node ./scripts/sync-package-versions.js",
+    "prepare:platform-package": "node ./scripts/prepare-platform-package.js",
     "test": "echo TODO: tests",
     "release": "np",
     "postinstall": "node ./npm/postinstall.js"
@@ -23,17 +25,20 @@
     "type": "git",
     "url": "git+https://github.com/ever-co/ever-cli.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "ever": "./bin/ever.js"
   },
   "optionalDependencies": {
     "@ever-co/cli-darwin-arm64": "0.1.0",
     "@ever-co/cli-darwin-x64": "0.1.0",
+    "@ever-co/cli-linux-arm64-gnu": "0.1.0",
     "@ever-co/cli-linux-x64-gnu": "0.1.0",
     "@ever-co/cli-linux-x64-musl": "0.1.0",
-    "@ever-co/cli-linux-arm64-gnu": "0.1.0",
-    "@ever-co/cli-win32-x64-msvc": "0.1.0",
-    "@ever-co/cli-win32-arm64-msvc": "0.1.0"
+    "@ever-co/cli-win32-arm64-msvc": "0.1.0",
+    "@ever-co/cli-win32-x64-msvc": "0.1.0"
   },
   "keywords": [
     "cli",
