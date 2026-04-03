@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document translates the product-level spec in [SPEC.md](/root/projects/ever/ever-works/ever-cli/docs/SPEC.md) into an implementation plan for the `ever-cli` repository.
+This document translates the product-level spec in [SPEC.md](./SPEC.md) into an implementation plan for the `ever-cli` repository.
 
 It is intended for review before coding begins.
 
@@ -71,7 +71,7 @@ Current `ever-cli` state:
 
 - repository: standalone npm package
 - implementation: minimal TypeScript stub
-- main entrypoint: [src/main.ts](/root/projects/ever/ever-works/ever-cli/src/main.ts)
+- main entrypoint: `src/main.ts`
 - behavior today: banner/logo output only
 
 Current package state:
@@ -268,9 +268,9 @@ Recommended first behavior:
 npm install -g ever-<product>-cli
 ```
 
-4. resolve installed binary path
-5. write manifest entry
-6. print success message
+1. resolve installed binary path
+2. write manifest entry
+3. print success message
 
 This should be npm-first only in MVP.
 

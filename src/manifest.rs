@@ -46,13 +46,26 @@ impl PluginManifest {
         }
 
         let data = fs::read_to_string(path)?;
-        Ok(serde_json::from_str(&data)?)
+        match serde_json::from_str(&data) {
+            Ok(manifest) => Ok(manifest),
+            Err(error) => {
+                eprintln!(
+                    "Warning: failed to parse manifest, using an empty manifest instead: {error}"
+                );
+                Ok(Self {
+                    version: 1,
+                    plugins: BTreeMap::new(),
+                })
+            }
+        }
     }
 
     pub fn save(&self) -> RouterResult<()> {
         let path = manifest_path()?;
+        let temp_path = path.with_extension("json.tmp");
         let data = serde_json::to_string_pretty(self)?;
-        fs::write(path, data)?;
+        fs::write(&temp_path, data)?;
+        fs::rename(temp_path, path)?;
         Ok(())
     }
 

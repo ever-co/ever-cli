@@ -2,10 +2,25 @@ use std::process::Command;
 
 use crate::error::{RouterError, RouterResult};
 
+fn npm_command() -> Command {
+    Command::new("npm")
+}
+
+fn command_not_found_message(error: &std::io::Error) -> Option<RouterError> {
+    if error.kind() == std::io::ErrorKind::NotFound {
+        return Some(RouterError::Message(
+            "npm was not found in PATH. Install Node.js/npm and try again.".to_string(),
+        ));
+    }
+
+    None
+}
+
 pub fn detect_global_package_version(package_name: &str) -> RouterResult<Option<String>> {
-    let output = Command::new("npm")
+    let output = npm_command()
         .args(["list", "-g", package_name, "--depth=0", "--json"])
-        .output()?;
+        .output()
+        .map_err(|error| command_not_found_message(&error).unwrap_or_else(|| error.into()))?;
 
     if !output.status.success() {
         return Ok(None);
@@ -25,9 +40,10 @@ pub fn detect_global_package_version(package_name: &str) -> RouterResult<Option<
 }
 
 pub fn install_global_package(package_name: &str) -> RouterResult<()> {
-    let status = Command::new("npm")
+    let status = npm_command()
         .args(["install", "-g", package_name])
-        .status()?;
+        .status()
+        .map_err(|error| command_not_found_message(&error).unwrap_or_else(|| error.into()))?;
 
     if !status.success() {
         return Err(RouterError::Message(format!(
@@ -40,9 +56,10 @@ pub fn install_global_package(package_name: &str) -> RouterResult<()> {
 }
 
 pub fn update_global_package(package_name: &str) -> RouterResult<()> {
-    let status = Command::new("npm")
+    let status = npm_command()
         .args(["update", "-g", package_name])
-        .status()?;
+        .status()
+        .map_err(|error| command_not_found_message(&error).unwrap_or_else(|| error.into()))?;
 
     if !status.success() {
         return Err(RouterError::Message(format!(
@@ -55,10 +72,11 @@ pub fn update_global_package(package_name: &str) -> RouterResult<()> {
 }
 
 pub fn update_global_packages(package_names: &[&str]) -> RouterResult<()> {
-    let status = Command::new("npm")
+    let status = npm_command()
         .args(["update", "-g"])
         .args(package_names)
-        .status()?;
+        .status()
+        .map_err(|error| command_not_found_message(&error).unwrap_or_else(|| error.into()))?;
 
     if !status.success() {
         return Err(RouterError::Message(
@@ -70,9 +88,10 @@ pub fn update_global_packages(package_names: &[&str]) -> RouterResult<()> {
 }
 
 pub fn uninstall_global_package(package_name: &str) -> RouterResult<()> {
-    let status = Command::new("npm")
+    let status = npm_command()
         .args(["uninstall", "-g", package_name])
-        .status()?;
+        .status()
+        .map_err(|error| command_not_found_message(&error).unwrap_or_else(|| error.into()))?;
 
     if !status.success() {
         return Err(RouterError::Message(format!(
