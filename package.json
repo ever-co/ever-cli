@@ -51,7 +51,7 @@
     "url": "https://github.com/ever-co/ever-cli/issues"
   },
   "devDependencies": {
-    "np": "*"
+    "np": "^10.2.0"
   },
   "dependencies": {},
   "engines": {

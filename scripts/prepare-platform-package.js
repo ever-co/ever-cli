@@ -32,9 +32,12 @@ fs.mkdirSync(outputDir, { recursive: true });
 const packageJsonPath = path.join(packageDir, 'package.json');
 const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 const binaryName = pkg.files[0];
+const licensePath = path.join(repoRoot, 'LICENSE.md');
 
 fs.copyFileSync(packageJsonPath, path.join(outputDir, 'package.json'));
-fs.copyFileSync(path.join(repoRoot, 'LICENSE.md'), path.join(outputDir, 'LICENSE.md'));
+if (fs.existsSync(licensePath)) {
+  fs.copyFileSync(licensePath, path.join(outputDir, 'LICENSE.md'));
+}
 fs.copyFileSync(path.join(repoRoot, 'README.md'), path.join(outputDir, 'README.md'));
 fs.copyFileSync(binaryPath, path.join(outputDir, binaryName));
 

@@ -9,12 +9,42 @@ const PLATFORM_PACKAGES = {
   'darwin-x64': '@ever-co/cli-darwin-x64/ever',
   'linux-arm64': '@ever-co/cli-linux-arm64-gnu/ever',
   'linux-x64': '@ever-co/cli-linux-x64-gnu/ever',
+  'linux-x64-musl': '@ever-co/cli-linux-x64-musl/ever',
   'win32-arm64': '@ever-co/cli-win32-arm64-msvc/ever.exe',
   'win32-x64': '@ever-co/cli-win32-x64-msvc/ever.exe',
 };
 
+function isMuslLinux() {
+  if (process.platform !== 'linux') {
+    return false;
+  }
+
+  if (typeof process.report?.getReport === 'function') {
+    const report = process.report.getReport();
+    if (report?.header?.glibcVersionRuntime) {
+      return false;
+    }
+  }
+
+  if (fs.existsSync('/etc/alpine-release')) {
+    return true;
+  }
+
+  const muslPaths = ['/lib', '/usr/sbin'];
+  return muslPaths.some((dir) => {
+    try {
+      return fs.readdirSync(dir).some((entry) => entry.startsWith('ld-musl-') || entry.startsWith('libc.musl-'));
+    } catch {
+      return false;
+    }
+  });
+}
+
 function resolveInstalledPlatformBinary() {
-  const key = `${process.platform}-${process.arch}`;
+  const key =
+    process.platform === 'linux' && process.arch === 'x64' && isMuslLinux()
+      ? 'linux-x64-musl'
+      : `${process.platform}-${process.arch}`;
   const packageEntry = PLATFORM_PACKAGES[key];
 
   if (!packageEntry) {
