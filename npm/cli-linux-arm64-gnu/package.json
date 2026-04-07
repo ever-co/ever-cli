@@ -1,0 +1,23 @@
+{
+  "name": "@ever-co/cli-linux-arm64-gnu",
+  "version": "0.1.0",
+  "description": "Ever CLI native binary for Linux arm64 GNU",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ever-co/ever-cli.git"
+  },
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "arm64"
+  ],
+  "files": [
+    "ever"
+  ],
+  "preferUnpacked": true,
+  "license": "GPL-3.0",
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,28 +1,63 @@
-# CLI for Ever Platforms
+# Ever CLI
 
-[![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/ever)
-[![Gitter](https://badges.gitter.im/JoinChat.svg)](https://gitter.im/ever-co/ever?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/evereq?utm_source=github&utm_medium=button&utm_term=evereq&utm_campaign=github)
+`ever-cli` is the root router for the Ever ecosystem.
 
-A command line tool for Ever Platforms:
+## Installation
 
-- https://github.com/ever-co/ever-demand
-- https://github.com/ever-co/ever-gauzy
-- https://github.com/ever-co/ever-opensaas
+Target install experience:
 
-# Installation
-
-```
+```bash
 npm install -g ever-cli
 ```
-or
-```
-yarn global add ever-cli
+
+The final package will distribute the Rust binary through npm-compatible packaging. During development, the native binary must be built locally.
+
+## Usage
+
+It provides a single entrypoint:
+
+```bash
+ever <product> <command> [args...]
 ```
 
-# How to use
+Examples:
 
-$ ever
+```bash
+ever works init
+ever cloc start timer
+ever os run agents
+```
+
+The router itself does not contain product logic. It resolves and forwards commands to product-specific CLIs such as `ever-works`, `ever-cloc`, or `ever-os`.
+
+## Current Status
+
+This repository is being migrated from the old TypeScript stub to a Rust-based router architecture.
+
+The approved implementation plan lives in:
+
+- [docs/SPEC.md](./docs/SPEC.md)
+- [docs/IMPLEMENTATION_SPEC.md](./docs/IMPLEMENTATION_SPEC.md)
+
+## Local Development
+
+Build the native router:
+
+```bash
+cargo build --release
+```
+
+Then run it through the npm wrapper:
+
+```bash
+node ./bin/ever.js --help
+```
+
+Or after install:
+
+```bash
+ever --help
+```
 
 # Publishing on NPM
 

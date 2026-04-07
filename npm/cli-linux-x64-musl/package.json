@@ -1,0 +1,23 @@
+{
+  "name": "@ever-co/cli-linux-x64-musl",
+  "version": "0.1.0",
+  "description": "Ever CLI native binary for Linux x64 musl",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ever-co/ever-cli.git"
+  },
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "files": [
+    "ever"
+  ],
+  "preferUnpacked": true,
+  "license": "GPL-3.0",
+  "publishConfig": {
+    "access": "public"
+  }
+}

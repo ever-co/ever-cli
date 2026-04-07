@@ -1,0 +1,23 @@
+{
+  "name": "@ever-co/cli-win32-x64-msvc",
+  "version": "0.1.0",
+  "description": "Ever CLI native binary for Windows x64 MSVC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ever-co/ever-cli.git"
+  },
+  "os": [
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "files": [
+    "ever.exe"
+  ],
+  "preferUnpacked": true,
+  "license": "GPL-3.0",
+  "publishConfig": {
+    "access": "public"
+  }
+}
