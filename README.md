@@ -47,6 +47,12 @@ Run the wrapper against the local build:
 node ./bin/ever.js --help
 ```
 
+Or after install:
+
+```bash
+ever --help
+```
+
 Useful commands:
 
 ```bash
@@ -73,7 +79,7 @@ The publish flow is:
 3. publish platform packages
 4. publish the main `ever-cli` package
 
-## Publishing
+## Publishing on NPM
 
 Publishing is currently driven by GitHub Actions:
 
@@ -87,7 +93,7 @@ Before publish, the npm token must have publish access to the `@ever-co` npm sco
 The publish workflow now verifies:
 
 - npm authentication via `npm whoami`
-- scope access via `npm access ls-packages @ever-co --json`
+- scope access via `npm access list packages @ever-co --json`
 
 If those checks fail, the workflow stops before building and publishing artifacts.
 
