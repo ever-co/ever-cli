@@ -59,7 +59,7 @@ try {
 
 let accessiblePackages;
 try {
-  const output = run('npm', ['access', 'list-packages', scope, '--json']);
+  const output = run('npm', ['access', 'list', 'packages', scope, '--json']);
   accessiblePackages = output ? JSON.parse(output) : {};
 } catch (error) {
   fail(
@@ -90,6 +90,6 @@ if (writablePackages.length > 0) {
   console.log(`Existing writable platform packages in scope: ${writablePackages.join(', ')}`);
 } else {
   console.log(
-    'No platform packages are currently visible in the scope. That is acceptable for a first publish as long as the token has organization publish access.',
+    'No writable platform packages are currently visible in the scope. This can be valid for a first publish, but publish will still require organization-level permission to create packages under the scope.',
   );
 }
