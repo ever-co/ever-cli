@@ -27,14 +27,24 @@ function fail(message, error) {
 
 function loadPlatformPackages() {
   const npmDir = path.join(repoRoot, 'npm');
-  return fs
-    .readdirSync(npmDir, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory() && entry.name.startsWith('cli-'))
-    .map((entry) => {
-      const packageJsonPath = path.join(npmDir, entry.name, 'package.json');
-      return JSON.parse(fs.readFileSync(packageJsonPath, 'utf8')).name;
-    })
-    .sort();
+  try {
+    return fs
+      .readdirSync(npmDir, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory() && entry.name.startsWith('cli-'))
+      .map((entry) => {
+        const packageJsonPath = path.join(npmDir, entry.name, 'package.json');
+        const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+
+        if (!packageJson.name || typeof packageJson.name !== 'string') {
+          throw new Error(`Missing package name in ${packageJsonPath}`);
+        }
+
+        return packageJson.name;
+      })
+      .sort();
+  } catch (error) {
+    fail('Failed to load platform package definitions from npm/.', error);
+  }
 }
 
 try {
@@ -49,7 +59,7 @@ try {
 
 let accessiblePackages;
 try {
-  const output = run('npm', ['access', 'ls-packages', scope, '--json']);
+  const output = run('npm', ['access', 'list-packages', scope, '--json']);
   accessiblePackages = output ? JSON.parse(output) : {};
 } catch (error) {
   fail(
@@ -61,9 +71,23 @@ try {
 const platformPackages = loadPlatformPackages();
 console.log(`Verified npm scope access for ${scope}.`);
 
-const publishedPackages = platformPackages.filter((pkg) => Object.hasOwn(accessiblePackages, pkg));
-if (publishedPackages.length > 0) {
-  console.log(`Existing platform packages in scope: ${publishedPackages.join(', ')}`);
+const writablePackages = platformPackages.filter(
+  (pkg) => Object.hasOwn(accessiblePackages, pkg) && accessiblePackages[pkg] === 'read-write',
+);
+const readOnlyPackages = platformPackages.filter(
+  (pkg) => Object.hasOwn(accessiblePackages, pkg) && accessiblePackages[pkg] !== 'read-write',
+);
+
+if (readOnlyPackages.length > 0) {
+  fail(
+    `The npm token only has read-only access for: ${readOnlyPackages.join(
+      ', ',
+    )}. Publish requires read-write access.`,
+  );
+}
+
+if (writablePackages.length > 0) {
+  console.log(`Existing writable platform packages in scope: ${writablePackages.join(', ')}`);
 } else {
   console.log(
     'No platform packages are currently visible in the scope. That is acceptable for a first publish as long as the token has organization publish access.',
