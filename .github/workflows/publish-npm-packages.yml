@@ -7,9 +7,29 @@ permissions:
   contents: read
 
 jobs:
+  preflight-publish:
+    name: Verify npm publish prerequisites
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Verify npm auth and scope access
+        run: node ./scripts/check-npm-publish-prereqs.js
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
   publish-platform:
     name: Publish ${{ matrix.artifact_name }}
     runs-on: ${{ matrix.os }}
+    needs: preflight-publish
     strategy:
       fail-fast: false
       matrix:
