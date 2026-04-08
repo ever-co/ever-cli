@@ -44,6 +44,7 @@ function loadPlatformPackages() {
       .sort();
   } catch (error) {
     fail('Failed to load platform package definitions from npm/.', error);
+    return [];
   }
 }
 
@@ -77,6 +78,7 @@ const writablePackages = platformPackages.filter(
 const readOnlyPackages = platformPackages.filter(
   (pkg) => Object.hasOwn(accessiblePackages, pkg) && accessiblePackages[pkg] !== 'read-write',
 );
+const unpublishedPackages = platformPackages.filter((pkg) => !Object.hasOwn(accessiblePackages, pkg));
 
 if (readOnlyPackages.length > 0) {
   fail(
@@ -88,8 +90,14 @@ if (readOnlyPackages.length > 0) {
 
 if (writablePackages.length > 0) {
   console.log(`Existing writable platform packages in scope: ${writablePackages.join(', ')}`);
-} else {
+}
+
+if (unpublishedPackages.length > 0) {
   console.log(
-    'No writable platform packages are currently visible in the scope. This can be valid for a first publish, but publish will still require organization-level permission to create packages under the scope.',
+    `Packages not yet visible in the scope: ${unpublishedPackages.join(
+      ', ',
+    )}. This can be valid for a first publish, but publish will still require organization-level permission to create packages under the scope.`,
   );
+} else if (writablePackages.length === 0) {
+  console.log('No writable platform packages are currently visible in the scope.');
 }
