@@ -11,10 +11,6 @@ jobs:
           keys:
             - ever-cli-cargo-v1-{{ checksum "Cargo.lock" }}
             - ever-cli-cargo-v1-
-      - restore_cache:
-          keys:
-            - ever-cli-node-v1-{{ checksum "package.json" }}
-            - ever-cli-node-v1-
       - run:
           name: Sync package versions
           command: node ./scripts/sync-package-versions.js
@@ -35,10 +31,6 @@ jobs:
             - ~/.cargo/registry
             - ~/.cargo/git
             - target
-      - save_cache:
-          key: ever-cli-node-v1-{{ checksum "package.json" }}
-          paths:
-            - node_modules
 
 workflows:
   build:
