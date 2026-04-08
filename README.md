@@ -30,48 +30,6 @@ ever os run agents
 
 The router itself does not contain product logic. It resolves and forwards commands to product-specific CLIs such as `ever-works`, `ever-cloc`, or `ever-os`.
 
-## Current Status
-
-This repository is being migrated from the old TypeScript stub to a Rust-based router architecture.
-
-The approved implementation plan lives in:
-
-- [docs/SPEC.md](./docs/SPEC.md)
-- [docs/IMPLEMENTATION_SPEC.md](./docs/IMPLEMENTATION_SPEC.md)
-
-## Local Development
-
-Build the native router:
-
-```bash
-cargo build --release
-```
-
-Then run it through the npm wrapper:
-
-```bash
-node ./bin/ever.js --help
-```
-
-Or after install:
-
-```bash
-ever --help
-```
-
-# Publishing on NPM
-
-Examples:
-
-```bash
-ever works init
-ever works --help
-ever install works
-ever doctor
-```
-
-The router does not contain product-specific business logic. It resolves and forwards commands to product CLIs such as `ever-works`.
-
 ## Current Architecture
 
 This repository is being migrated from the old TypeScript stub to a Rust-based router with:
@@ -100,6 +58,12 @@ Run the wrapper against the local build:
 node ./bin/ever.js --help
 ```
 
+Or after install:
+
+```bash
+ever --help
+```
+
 Useful commands:
 
 ```bash
@@ -126,7 +90,7 @@ The publish flow is:
 3. publish platform packages
 4. publish the main `ever-cli` package
 
-## Publishing
+## Publishing on NPM
 
 Publishing is currently driven by GitHub Actions:
 
