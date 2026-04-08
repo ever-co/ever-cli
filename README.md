@@ -1,12 +1,65 @@
 # Ever CLI
 
-`ever-cli` is the root router for the Ever CLI ecosystem.
+`ever-cli` is the root router for the Ever ecosystem.
 
-It provides a single top-level command:
+## Installation
+
+Target install experience:
+
+```bash
+npm install -g ever-cli
+```
+
+The final package will distribute the Rust binary through npm-compatible packaging. During development, the native binary must be built locally.
+
+## Usage
+
+It provides a single entrypoint:
 
 ```bash
 ever <product> <command> [args...]
 ```
+
+Examples:
+
+```bash
+ever works init
+ever cloc start timer
+ever os run agents
+```
+
+The router itself does not contain product logic. It resolves and forwards commands to product-specific CLIs such as `ever-works`, `ever-cloc`, or `ever-os`.
+
+## Current Status
+
+This repository is being migrated from the old TypeScript stub to a Rust-based router architecture.
+
+The approved implementation plan lives in:
+
+- [docs/SPEC.md](./docs/SPEC.md)
+- [docs/IMPLEMENTATION_SPEC.md](./docs/IMPLEMENTATION_SPEC.md)
+
+## Local Development
+
+Build the native router:
+
+```bash
+cargo build --release
+```
+
+Then run it through the npm wrapper:
+
+```bash
+node ./bin/ever.js --help
+```
+
+Or after install:
+
+```bash
+ever --help
+```
+
+# Publishing on NPM
 
 Examples:
 
