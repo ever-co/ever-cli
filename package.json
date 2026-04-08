@@ -17,6 +17,7 @@
     "start": "node ./bin/ever.js",
     "sync:versions": "node ./scripts/sync-package-versions.js",
     "prepare:platform-package": "node ./scripts/prepare-platform-package.js",
+    "check:publish-prereqs": "node ./scripts/check-npm-publish-prereqs.js",
     "test": "echo TODO: tests",
     "release": "np",
     "postinstall": "node ./npm/postinstall.js"
