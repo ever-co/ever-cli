@@ -17,17 +17,17 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ever-k8s-linux-x64-4
+          - os: "${{ vars.RUNNER_LINUX_X64_4 || 'ubuntu-latest' }}"
             target: x86_64-unknown-linux-gnu
             binary_name: ever
             artifact_name: ever-cli-linux-x64-gnu
             package_dir: npm/cli-linux-x64-gnu
-          - os: ever-k8s-linux-x64-4
+          - os: "${{ vars.RUNNER_LINUX_X64_4 || 'ubuntu-latest' }}"
             target: x86_64-unknown-linux-musl
             binary_name: ever
             artifact_name: ever-cli-linux-x64-musl
             package_dir: npm/cli-linux-x64-musl
-          - os: ever-k8s-linux-x64-4
+          - os: "${{ vars.RUNNER_LINUX_X64_4 || 'ubuntu-latest' }}"
             target: aarch64-unknown-linux-gnu
             binary_name: ever
             artifact_name: ever-cli-linux-arm64-gnu
