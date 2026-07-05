@@ -17,17 +17,17 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-latest
+          - os: ever-k8s-linux-x64-4
             target: x86_64-unknown-linux-gnu
             binary_name: ever
             artifact_name: ever-cli-linux-x64-gnu
             package_dir: npm/cli-linux-x64-gnu
-          - os: ubuntu-latest
+          - os: ever-k8s-linux-x64-4
             target: x86_64-unknown-linux-musl
             binary_name: ever
             artifact_name: ever-cli-linux-x64-musl
             package_dir: npm/cli-linux-x64-musl
-          - os: ubuntu-latest
+          - os: ever-k8s-linux-x64-4
             target: aarch64-unknown-linux-gnu
             binary_name: ever
             artifact_name: ever-cli-linux-arm64-gnu
