@@ -59,11 +59,16 @@ jobs:
             binary_name: ever
             artifact_name: ever-cli-darwin-x64
             package_dir: npm/cli-darwin-x64
-          - os: windows-latest
+            # Our own Windows machines (ever-co org variable RUNNER_WINDOWS_X64, a JSON
+            # label list, owner rule 2026-11-04). Forks have no variable and keep the
+            # hosted image.
+          - os: "${{ vars.RUNNER_WINDOWS_X64 && fromJSON(vars.RUNNER_WINDOWS_X64) || 'windows-latest' }}"
             target: x86_64-pc-windows-msvc
             binary_name: ever.exe
             artifact_name: ever-cli-win32-x64-msvc
             package_dir: npm/cli-win32-x64-msvc
+            # arm64 stays GitHub-hosted (owner rule 2026-11-04): our Windows runners have
+            # no MSVC ARM64 build tools to cross-compile this target.
           - os: windows-latest
             target: aarch64-pc-windows-msvc
             binary_name: ever.exe
@@ -82,6 +87,14 @@ jobs:
 
       - name: Sync platform package versions
         run: node ./scripts/sync-package-versions.js
+
+      # Git Bash and rustup on our own Windows runners (the runner service is
+      # SYSTEM, which sees neither); a no-op on GitHub-hosted ones.
+      - name: Self-hosted Windows setup
+        if: runner.os == 'Windows'
+        uses: ./.github/actions/self-hosted-windows-setup
+        with:
+          rust: 'true'
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
