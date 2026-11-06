@@ -17,7 +17,7 @@ jobs:
       # GitHub's artifact storage for ever-co is full ("Artifact storage quota has been hit"; Free plan, billing
       # locked), so builds upload to our own storage (MinIO bucket `ci-artifacts`, 14-day expiry) when the repo has
       # the CI_ARTIFACTS_S3_* settings. Forks have none and keep actions/upload-artifact.
-      CI_ARTIFACTS_S3: ${{ secrets.CI_ARTIFACTS_S3_SECRET_ACCESS_KEY != '' && vars.CI_ARTIFACTS_S3_BUCKET != '' && 'true' || 'false' }}
+      CI_ARTIFACTS_S3: ${{ secrets.CI_ARTIFACTS_S3_SECRET_ACCESS_KEY != '' && vars.CI_ARTIFACTS_S3_BUCKET != '' && vars.CI_ARTIFACTS_S3_ENDPOINT != '' && vars.CI_ARTIFACTS_S3_ACCESS_KEY_ID != '' && 'true' || 'false' }}
     strategy:
       fail-fast: false
       matrix:
