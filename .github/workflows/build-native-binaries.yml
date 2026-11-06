@@ -13,6 +13,11 @@ jobs:
   build:
     name: Build ${{ matrix.target }}
     runs-on: ${{ matrix.os }}
+    env:
+      # GitHub's artifact storage for ever-co is full ("Artifact storage quota has been hit"; Free plan, billing
+      # locked), so builds upload to our own storage (MinIO bucket `ci-artifacts`, 14-day expiry) when the repo has
+      # the CI_ARTIFACTS_S3_* settings. Forks have none and keep actions/upload-artifact.
+      CI_ARTIFACTS_S3: ${{ secrets.CI_ARTIFACTS_S3_SECRET_ACCESS_KEY != '' && vars.CI_ARTIFACTS_S3_BUCKET != '' && 'true' || 'false' }}
     strategy:
       fail-fast: false
       matrix:
@@ -115,7 +120,24 @@ jobs:
             "target/${{ matrix.target }}/release/${{ matrix.binary_name }}" \
             "dist/${{ matrix.artifact_name }}"
 
+      # One archive per target: the package directory keeps its layout, and the link in the job summary is one file.
+      - name: Upload package to CI artifact storage
+        if: env.CI_ARTIFACTS_S3 == 'true'
+        shell: bash
+        env:
+          CI_ARTIFACTS_S3_ENDPOINT: ${{ vars.CI_ARTIFACTS_S3_ENDPOINT }}
+          CI_ARTIFACTS_S3_BUCKET: ${{ vars.CI_ARTIFACTS_S3_BUCKET }}
+          CI_ARTIFACTS_S3_ACCESS_KEY_ID: ${{ vars.CI_ARTIFACTS_S3_ACCESS_KEY_ID }}
+          CI_ARTIFACTS_S3_SECRET_ACCESS_KEY: ${{ secrets.CI_ARTIFACTS_S3_SECRET_ACCESS_KEY }}
+          CI_ARTIFACTS_S3_DOWNLOAD_ENDPOINT: ${{ vars.CI_ARTIFACTS_S3_DOWNLOAD_ENDPOINT }}
+          PREFIX: ever-cli/native/${{ github.ref_name }}/${{ github.sha }}/${{ matrix.target }}
+        run: |
+          tar -czf "dist/${{ matrix.artifact_name }}.tar.gz" -C dist "${{ matrix.artifact_name }}"
+          node scripts/ci/upload-ci-artifacts.mjs --self-test
+          node scripts/ci/upload-ci-artifacts.mjs --prefix "$PREFIX" "dist/${{ matrix.artifact_name }}.tar.gz"
+
       - name: Upload artifact
+        if: env.CI_ARTIFACTS_S3 != 'true'
         uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.artifact_name }}
